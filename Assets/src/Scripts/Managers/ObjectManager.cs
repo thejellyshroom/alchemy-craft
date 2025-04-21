@@ -1,10 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq; // Optional: If you need Linq for querying the list later
+using System.Linq;
 //this script manages objects in the scene and keeps track of their tags
 public class ObjectManager : MonoBehaviour
 {
-    // --- Singleton Pattern Start ---
     public static ObjectManager Instance { get; private set; }
 
     void Awake()
@@ -17,15 +16,14 @@ public class ObjectManager : MonoBehaviour
         else
         {
             Instance = this;
-            // Optional: DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
     }
-    // --- Singleton Pattern End ---
 
     // List to track all active ObjectInfo components
     private List<ObjectInfo> activeObjects = new List<ObjectInfo>();
 
-    // Public read-only access to the list if needed by other systems
+    // if needed by other systems
     public IReadOnlyList<ObjectInfo> ActiveObjects => activeObjects.AsReadOnly();
 
     public void RegisterObject(ObjectInfo objInfo)
@@ -37,14 +35,15 @@ public class ObjectManager : MonoBehaviour
             activeObjects.Add(objInfo);
             Debug.Log($"Registered: {objInfo.gameObject.name} ({objInfo.objectType})");
 
-            // Optional: Verify components exist upon registration
             if (objInfo.GetComponent<Collider>() == null)
             {
                 Debug.LogWarning($"{objInfo.gameObject.name} was registered but is missing a Collider.");
+                objInfo.gameObject.AddComponent<Collider>();
             }
             if (objInfo.GetComponent<Rigidbody>() == null)
             {
                 Debug.LogWarning($"{objInfo.gameObject.name} was registered but is missing a Rigidbody.");
+                objInfo.gameObject.AddComponent<Rigidbody>();
             }
         }
     }
@@ -54,15 +53,13 @@ public class ObjectManager : MonoBehaviour
         if (objInfo != null && activeObjects.Contains(objInfo))
         {
             activeObjects.Remove(objInfo);
-            // Debug.Log($"Deregistered: {objInfo.gameObject.name}"); // Can be noisy
         }
     }
 
-    // Example utility function you might add later
+    //  utility function might be added later
     // public List<ObjectInfo> FindObjectsByType(ObjectType type)
     // {
     //     return activeObjects.Where(obj => obj.objectType == type).ToList();
     // }
 
-    // Removed empty Start/Update, add back if needed for other logic
 }

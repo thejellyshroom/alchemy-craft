@@ -7,6 +7,6 @@ public class CombinationRule : ScriptableObject
     public ObjectType input2;
 
     [Header("Output")]
-    public ObjectType outputType; // Optional: Useful for identifying the result type
-    public GameObject outputPrefab; // The prefab to instantiate upon successful combination
+    public ObjectType outputType; // Optional
+    public GameObject outputPrefab;
 }

@@ -4,7 +4,6 @@ using System.Linq; // Required for Linq queries if we want more complex rule loo
 
 public class CombinationManager : MonoBehaviour
 {
-    // --- Singleton Pattern Start ---
     public static CombinationManager Instance { get; private set; }
 
     void Awake()
@@ -18,15 +17,13 @@ public class CombinationManager : MonoBehaviour
         else
         {
             Instance = this;
-            // Optional: DontDestroyOnLoad(gameObject); // Keep the manager across scene loads if needed
+            // DontDestroyOnLoad(gameObject);
         }
     }
-    // --- Singleton Pattern End ---
 
     public List<CombinationRule> combinationRules = new List<CombinationRule>();
 
-    // Method to check for combinations and return the resulting prefab
-    // Returns null if no matching rule is found
+    // check for combinations and return the prefab
     public GameObject CheckCombination(ObjectType type1, ObjectType type2)
     {
         Debug.Log($"Checking combination for: {type1} and {type2}");
@@ -53,13 +50,4 @@ public class CombinationManager : MonoBehaviour
         Debug.Log("No matching combination rule found.");
         return null; // No rule found
     }
-
-    // Remove or keep the Start and SetupCombinationRules methods as needed
-    // void Start()
-    // {
-    // }
-
-    // void SetupCombinationRules() // This is now handled by creating ScriptableObject assets
-    // {
-    // }
 }
