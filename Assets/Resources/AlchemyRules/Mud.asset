@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8a65c690612e4104b79bbbcdbb68208, type: 3}
+  m_Name: Mud
+  m_EditorClassIdentifier: 
+  input1: 1
+  input2: 2
+  outputType: 5
+  outputPrefab: {fileID: 1456053563282252370, guid: 27d45e23155754ca38e0596726ab2d22, type: 3}

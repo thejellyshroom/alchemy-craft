@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8a65c690612e4104b79bbbcdbb68208, type: 3}
-  m_Name: Mud
+  m_Name: Big House
   m_EditorClassIdentifier: 
-  input1: 1
-  input2: 2
-  outputType: 5
-  outputPrefab: {fileID: 1567814349613931944, guid: 603eca509fcba475ba724aff864d73f8, type: 3}
+  input1: 18
+  input2: 15
+  outputType: 20
+  outputPrefab: {fileID: 6276815516267136558, guid: bda4d8bb4d0784c628bd95cce772ad40, type: 3}

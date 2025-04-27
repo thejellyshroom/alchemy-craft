@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 //this script manages objects in the scene and keeps track of their tags
 public class ObjectManager : MonoBehaviour
 {
@@ -35,15 +36,15 @@ public class ObjectManager : MonoBehaviour
             activeObjects.Add(objInfo);
             Debug.Log($"Registered: {objInfo.gameObject.name} ({objInfo.objectType})");
 
-            if (objInfo.GetComponent<Collider>() == null)
-            {
-                Debug.LogWarning($"{objInfo.gameObject.name} was registered but is missing a Collider.");
-                objInfo.gameObject.AddComponent<Collider>();
-            }
             if (objInfo.GetComponent<Rigidbody>() == null)
             {
                 Debug.LogWarning($"{objInfo.gameObject.name} was registered but is missing a Rigidbody.");
                 objInfo.gameObject.AddComponent<Rigidbody>();
+            }
+            if (objInfo.GetComponent<XRGrabInteractable>() == null)
+            {
+                Debug.LogWarning($"{objInfo.gameObject.name} was registered but is missing a XRGrabInteractable.");
+                objInfo.gameObject.AddComponent<XRGrabInteractable>();
             }
         }
     }
@@ -56,7 +57,7 @@ public class ObjectManager : MonoBehaviour
         }
     }
 
-    //  utility function might be added later
+    //  might need later
     // public List<ObjectInfo> FindObjectsByType(ObjectType type)
     // {
     //     return activeObjects.Where(obj => obj.objectType == type).ToList();

@@ -13,11 +13,28 @@ public class CombinationManager : MonoBehaviour
         {
             Debug.LogWarning("Duplicate CombinationManager found. Destroying self.");
             Destroy(gameObject);
+            return; // Return early to prevent loading rules for the duplicate
+        }
+
+        Instance = this;
+        // DontDestroyOnLoad(gameObject); // Optional: Uncomment if you want this manager to persist across scenes
+
+        LoadCombinationRules();
+    }
+
+    void LoadCombinationRules()
+    {
+        combinationRules.Clear(); // Clear any rules potentially assigned in the inspector
+        CombinationRule[] loadedRules = Resources.LoadAll<CombinationRule>("AlchemyRules");
+
+        if (loadedRules.Length == 0)
+        {
+            Debug.LogWarning("No CombinationRule assets found in Resources/src/AlchemyRules. Make sure the path is correct and the assets exist.");
         }
         else
         {
-            Instance = this;
-            // DontDestroyOnLoad(gameObject);
+            combinationRules.AddRange(loadedRules);
+            Debug.Log($"Loaded {loadedRules.Length} combination rules from Resources/src/AlchemyRules.");
         }
     }
 

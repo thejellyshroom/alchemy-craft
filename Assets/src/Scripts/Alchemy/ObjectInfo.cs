@@ -49,7 +49,7 @@ public class ObjectInfo : MonoBehaviour
                 this.hasCombined = true;
                 otherInfo.hasCombined = true;
 
-                Vector3 spawnPosition = collision.contacts[0].point; // Position where they touched
+                Vector3 spawnPosition = collision.contacts[0].point + new Vector3(0, 0.5f, 0); // Position where they touched
 
                 // Instantiate obj
                 GameObject resultObject = Instantiate(resultPrefab, spawnPosition, Quaternion.identity);
