@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.InputSystem;
 
 public class PrimitiveSpawner : MonoBehaviour
 {
     public GameObject primitiveToSpawn;
-    public Transform playerPosition;
+    private Transform playerPosition;
+
     void Awake()
     {
         Rigidbody rb = GetComponent<Rigidbody>();
@@ -23,21 +25,30 @@ public class PrimitiveSpawner : MonoBehaviour
             grabInteractable = gameObject.AddComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
         }
 
-        // Configure the interactable to be immovable
         grabInteractable.movementType = UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable.MovementType.Instantaneous;
         grabInteractable.throwOnDetach = false;
 
-        //xr input
-        grabInteractable.selectEntered.RemoveListener(HandleGrab);
+        // XR input: Hook up grab event
+        grabInteractable.selectEntered.RemoveListener(HandleGrab); // Remove first to prevent duplicates
         grabInteractable.selectEntered.AddListener(HandleGrab);
     }
 
     void Start()
     {
-        playerPosition = GameObject.Find("Player").transform;
+        GameObject playerObject = GameObject.FindWithTag("Player"); // Replace "Player" with the actual tag you're using
+
+        if (playerObject != null)
+        {
+            playerPosition = playerObject.transform;
+        }
+        else
+        {
+            Debug.LogError("Could not find GameObject with tag 'Player'. Make sure the object exists and is tagged correctly.");
+        }
     }
 
-    public void HandleGrab(SelectEnterEventArgs args = null) // Updated signature to match event
+    // Called by both XR grab and Mouse click
+    public void HandleGrab(SelectEnterEventArgs args = null)
     {
         if (primitiveToSpawn == null)
         {
@@ -45,9 +56,14 @@ public class PrimitiveSpawner : MonoBehaviour
             return;
         }
 
-        Vector3 spawnPosition = playerPosition.position + new Vector3(0, 0.5f, 0.5f);
-        Instantiate(primitiveToSpawn, spawnPosition, transform.rotation);
-        Debug.Log($"Spawned {primitiveToSpawn.name} from {this.gameObject.name}");
+        if (playerPosition == null)
+        {
+            Debug.LogError("Player Position Transform is not assigned in the Inspector!", this.gameObject);
+            return;
+        }
+
+        Vector3 spawnPosition = playerPosition.position + playerPosition.forward * 3f + playerPosition.up * 1f;
+        Instantiate(primitiveToSpawn, spawnPosition, playerPosition.rotation);
     }
 
     void OnDestroy()
@@ -61,16 +77,14 @@ public class PrimitiveSpawner : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // 0 is the left mouse button
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                // Check if the hit object is THIS spawner
                 if (hit.collider.gameObject == this.gameObject)
                 {
-                    // Call HandleGrab or a dedicated mouse spawn method
-                    HandleGrab(); // Or potentially a new method HandleMouseSpawn()
+                    HandleGrab();
                 }
             }
         }
