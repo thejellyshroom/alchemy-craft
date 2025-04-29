@@ -46,3 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combinationRules:
   - {fileID: 11400000, guid: a7346f080598e4adb8c865bf75265b2d, type: 2}
+  - {fileID: 11400000, guid: 54035215100b8436aabdd0d06b73b390, type: 2}
+  - {fileID: 11400000, guid: e0f5ad77aee9e45379e8b5337c901337, type: 2}
+  - {fileID: 11400000, guid: 5adcd54dd619d4979bef49eee848d8a7, type: 2}
+  - {fileID: 11400000, guid: a7346f080598e4adb8c865bf75265b2d, type: 2}
+  - {fileID: 11400000, guid: a7346f080598e4adb8c865bf75265b2d, type: 2}
+  - {fileID: 11400000, guid: a7346f080598e4adb8c865bf75265b2d, type: 2}

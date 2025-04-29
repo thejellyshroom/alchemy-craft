@@ -287,7 +287,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   primitiveToSpawn: {fileID: 444423198351036682, guid: defddc6d3a47647909e637d184c74465, type: 3}
-  playerPosition: {fileID: 0}
 --- !u!1 &125404515
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +404,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   primitiveToSpawn: {fileID: 8427865546276564494, guid: 80c27d748108e4afb88749e111c0cf99, type: 3}
-  playerPosition: {fileID: 0}
 --- !u!1 &509608626
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,7 +597,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   primitiveToSpawn: {fileID: 7750048376901443189, guid: 4e50da58785d948088810c9345d24c8c, type: 3}
-  playerPosition: {fileID: 0}
 --- !u!1001 &1156927533
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -691,7 +688,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   primitiveToSpawn: {fileID: 1570040323660950149, guid: 5558758cf67774734b1b93c50c795181, type: 3}
-  playerPosition: {fileID: 0}
 --- !u!1 &1231748179
 GameObject:
   m_ObjectHideFlags: 0
@@ -1080,34 +1076,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4455310818730861111, guid: 1e94954d682074a17b6f463192c96a88, type: 3}
-      propertyPath: combinationRules.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4455310818730861111, guid: 1e94954d682074a17b6f463192c96a88, type: 3}
-      propertyPath: 'combinationRules.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 54035215100b8436aabdd0d06b73b390, type: 2}
-    - target: {fileID: 4455310818730861111, guid: 1e94954d682074a17b6f463192c96a88, type: 3}
-      propertyPath: 'combinationRules.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: e0f5ad77aee9e45379e8b5337c901337, type: 2}
-    - target: {fileID: 4455310818730861111, guid: 1e94954d682074a17b6f463192c96a88, type: 3}
-      propertyPath: 'combinationRules.Array.data[3]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 5adcd54dd619d4979bef49eee848d8a7, type: 2}
-    - target: {fileID: 4455310818730861111, guid: 1e94954d682074a17b6f463192c96a88, type: 3}
-      propertyPath: 'combinationRules.Array.data[4]'
-      value: 
-      objectReference: {fileID: 11400000, guid: a7346f080598e4adb8c865bf75265b2d, type: 2}
-    - target: {fileID: 4455310818730861111, guid: 1e94954d682074a17b6f463192c96a88, type: 3}
-      propertyPath: 'combinationRules.Array.data[5]'
-      value: 
-      objectReference: {fileID: 11400000, guid: a7346f080598e4adb8c865bf75265b2d, type: 2}
-    - target: {fileID: 4455310818730861111, guid: 1e94954d682074a17b6f463192c96a88, type: 3}
-      propertyPath: 'combinationRules.Array.data[6]'
-      value: 
-      objectReference: {fileID: 11400000, guid: a7346f080598e4adb8c865bf75265b2d, type: 2}
     - target: {fileID: 7505420357497763607, guid: 1e94954d682074a17b6f463192c96a88, type: 3}
       propertyPath: m_Name
       value: CombinationManager
