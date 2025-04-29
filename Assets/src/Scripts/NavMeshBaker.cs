@@ -7,8 +7,7 @@ public class MRNavMeshBaker : MonoBehaviour
 
     void Start()
     {
-        // Bake the NavMesh after real-world planes are detected and instantiated
-        Invoke("BakeNavMesh", 3f); // Delay to allow surface detection
+        Invoke("BakeNavMesh", 3f);
     }
 
     void BakeNavMesh()
