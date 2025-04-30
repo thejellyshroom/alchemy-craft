@@ -1,0 +1,5 @@
+/Volumes/Sandisk/usc/2024-2025/XR Development/alchemy-craft/.utmp/RelWithDebInfo/4c565dym/arm64-v8a/CMakeFiles/edit_cache.dir
+/Volumes/Sandisk/usc/2024-2025/XR Development/alchemy-craft/.utmp/RelWithDebInfo/4c565dym/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/Volumes/Sandisk/usc/2024-2025/XR Development/alchemy-craft/.utmp/RelWithDebInfo/4c565dym/arm64-v8a/GameActivity/CMakeFiles/game.dir
+/Volumes/Sandisk/usc/2024-2025/XR Development/alchemy-craft/.utmp/RelWithDebInfo/4c565dym/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+/Volumes/Sandisk/usc/2024-2025/XR Development/alchemy-craft/.utmp/RelWithDebInfo/4c565dym/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir

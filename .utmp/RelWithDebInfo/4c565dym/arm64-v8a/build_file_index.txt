@@ -1,0 +1,2 @@
+/Volumes/Sandisk/usc/2024-2025/XR Development/alchemy-craft/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/CMakeLists.txt
+/Volumes/Sandisk/usc/2024-2025/XR Development/alchemy-craft/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/CMakeLists.txt

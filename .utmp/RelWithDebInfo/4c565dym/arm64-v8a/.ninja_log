@@ -1,0 +1,10 @@
+# ninja log v5
+4	642	1746044551520000000	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	f0e50e590675a9f6
+2	646	1746044551530000000	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	2b83edd2b3ee281c
+4	691	1746044551550000000	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	659ae29b00ec062
+2	692	1746044551560000000	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	8b50a0a195b4f32a
+5	720	1746044551610000000	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	9cd91aed003abd23
+2	732	1746044551620000000	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	6f17e3ba3ec29ccb
+3	898	1746044551780000000	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	4aa4d961bdff97f9
+1	928	1746044551810000000	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	83e4c7cac2670538
+929	1048	1746044551930000000	/Volumes/Sandisk/usc/2024-2025/XR Development/alchemy-craft/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4c565dym/obj/arm64-v8a/libgame.so	5932b3e0e09ea0fe
