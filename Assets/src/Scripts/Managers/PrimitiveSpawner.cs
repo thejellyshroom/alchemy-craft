@@ -12,7 +12,6 @@ public class PrimitiveSpawner : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb == null)
         {
-            Debug.LogWarning("Rigidbody component missing. Adding one.", gameObject);
             rb = gameObject.AddComponent<Rigidbody>();
         }
         rb.isKinematic = true;
@@ -21,11 +20,10 @@ public class PrimitiveSpawner : MonoBehaviour
         UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
         if (grabInteractable == null)
         {
-            Debug.LogWarning("XRGrabInteractable component missing. Adding one.", gameObject);
             grabInteractable = gameObject.AddComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
         }
 
-        grabInteractable.movementType = UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable.MovementType.Instantaneous;
+        grabInteractable.movementType = UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable.MovementType.Kinematic;
         grabInteractable.throwOnDetach = false;
 
         // XR input: Hook up grab event
