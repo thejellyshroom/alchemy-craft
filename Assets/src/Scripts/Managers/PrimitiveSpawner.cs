@@ -17,6 +17,9 @@ public class PrimitiveSpawner : MonoBehaviour
         rb.isKinematic = true;
         rb.useGravity = false;
 
+        // Correct way to freeze all rotation and position axes
+        rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+
         UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
         if (grabInteractable == null)
         {
@@ -60,7 +63,7 @@ public class PrimitiveSpawner : MonoBehaviour
             return;
         }
 
-        Vector3 spawnPosition = playerPosition.position + playerPosition.forward * 3f + playerPosition.up * 1f;
+        Vector3 spawnPosition = playerPosition.position + new Vector3(0, 1.36144f, 3f);
         Instantiate(primitiveToSpawn, spawnPosition, playerPosition.rotation);
     }
 

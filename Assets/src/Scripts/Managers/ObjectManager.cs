@@ -11,20 +11,17 @@ public class ObjectManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogWarning("Duplicate ObjectManager found. Destroying self.");
             Destroy(gameObject);
         }
         else
         {
             Instance = this;
-            // DontDestroyOnLoad(gameObject);
         }
     }
 
     // List to track all active ObjectInfo components
     private List<ObjectInfo> activeObjects = new List<ObjectInfo>();
 
-    // if needed by other systems
     public IReadOnlyList<ObjectInfo> ActiveObjects => activeObjects.AsReadOnly();
 
     public void RegisterObject(ObjectInfo objInfo)
@@ -34,16 +31,13 @@ public class ObjectManager : MonoBehaviour
         if (!activeObjects.Contains(objInfo))
         {
             activeObjects.Add(objInfo);
-            Debug.Log($"Registered: {objInfo.gameObject.name} ({objInfo.objectType})");
 
             if (objInfo.GetComponent<Rigidbody>() == null)
             {
-                Debug.LogWarning($"{objInfo.gameObject.name} was registered but is missing a Rigidbody.");
                 objInfo.gameObject.AddComponent<Rigidbody>();
             }
             if (objInfo.GetComponent<XRGrabInteractable>() == null)
             {
-                Debug.LogWarning($"{objInfo.gameObject.name} was registered but is missing a XRGrabInteractable.");
                 objInfo.gameObject.AddComponent<XRGrabInteractable>();
             }
         }

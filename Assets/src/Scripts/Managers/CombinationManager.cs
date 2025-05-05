@@ -8,12 +8,11 @@ public class CombinationManager : MonoBehaviour
 
     void Awake()
     {
-        // If there is an instance, and it's not me, delete myself.
         if (Instance != null && Instance != this)
         {
             Debug.LogWarning("Duplicate CombinationManager found. Destroying self.");
             Destroy(gameObject);
-            return; // Return early to prevent loading rules for the duplicate
+            return;
         }
 
         Instance = this;
@@ -34,7 +33,6 @@ public class CombinationManager : MonoBehaviour
         else
         {
             combinationRules.AddRange(loadedRules);
-            Debug.Log($"Loaded {loadedRules.Length} combination rules from Resources/src/AlchemyRules.");
         }
     }
 
@@ -43,7 +41,6 @@ public class CombinationManager : MonoBehaviour
     // check for combinations and return the prefab
     public GameObject CheckCombination(ObjectType type1, ObjectType type2)
     {
-        Debug.Log($"Checking combination for: {type1} and {type2}");
 
         foreach (CombinationRule rule in combinationRules)
         {
@@ -53,7 +50,6 @@ public class CombinationManager : MonoBehaviour
             {
                 if (rule.outputPrefab != null)
                 {
-                    Debug.Log($"Combination found: {type1} + {type2} = {rule.outputType}");
                     return rule.outputPrefab;
                 }
                 else
