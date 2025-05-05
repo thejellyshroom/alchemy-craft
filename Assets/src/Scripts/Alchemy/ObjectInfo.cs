@@ -6,9 +6,21 @@ public class ObjectInfo : MonoBehaviour
 {
     public ObjectType objectType;
     private bool hasCombined = false;
+    private Transform playerTransform; // Added to store player transform
 
     void Start()
     {
+        // Added: Find Player Transform
+        GameObject playerObject = GameObject.FindWithTag("Player");
+        if (playerObject != null)
+        {
+            playerTransform = playerObject.transform;
+        }
+        else
+        {
+            Debug.LogError("Player object with tag 'Player' not found! Combination rotation may be incorrect.", this.gameObject);
+        }
+
         // Ensure ObjectManager exists
         if (ObjectManager.Instance != null)
         {
@@ -51,9 +63,14 @@ public class ObjectInfo : MonoBehaviour
 
                 Vector3 spawnPosition = collision.contacts[0].point + new Vector3(0, 0.5f, 0); // Position where they touched
 
-                // Instantiate obj
-                GameObject resultObject = Instantiate(resultPrefab, spawnPosition, Quaternion.identity);
-                Debug.Log($"Instantiated {resultObject.name} at {spawnPosition}");
+                Quaternion finalRotation = Quaternion.identity; // Default rotation
+                if (resultPrefab != null)
+                {
+                    Quaternion originalPrefabRotation = resultPrefab.transform.rotation;
+                    finalRotation = PrimitiveSpawner.CalculateYAxisFacingPlayerRotation(originalPrefabRotation, spawnPosition, playerTransform);
+                }
+
+                GameObject resultObject = Instantiate(resultPrefab, spawnPosition, finalRotation);
 
                 Destroy(this.gameObject);
                 Destroy(otherInfo.gameObject);

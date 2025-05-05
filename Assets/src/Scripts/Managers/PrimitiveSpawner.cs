@@ -63,8 +63,11 @@ public class PrimitiveSpawner : MonoBehaviour
             return;
         }
 
-        Vector3 spawnPosition = playerPosition.position + new Vector3(0, 1.36144f, 3f);
-        Instantiate(primitiveToSpawn, spawnPosition, playerPosition.rotation);
+        Vector3 spawnPosition = playerPosition.position + new Vector3(0, 1.36144f, 12.5f);
+        Quaternion originalPrefabRotation = (primitiveToSpawn != null) ? primitiveToSpawn.transform.rotation : Quaternion.identity;
+        Quaternion finalRotation = CalculateYAxisFacingPlayerRotation(originalPrefabRotation, spawnPosition, playerPosition);
+
+        Instantiate(primitiveToSpawn, spawnPosition, finalRotation);
     }
 
     void OnDestroy()
@@ -89,5 +92,30 @@ public class PrimitiveSpawner : MonoBehaviour
                 }
             }
         }
+    }
+
+    public static Quaternion CalculateYAxisFacingPlayerRotation(Quaternion originalPrefabRotation, Vector3 spawnPosition, Transform playerTransform)
+    {
+        Quaternion finalRotation = originalPrefabRotation; // Default to original rotation
+
+        if (playerTransform == null)
+        {
+            Debug.LogWarning("Player Transform is null in CalculateYAxisFacingPlayerRotation. Returning original rotation.");
+            return finalRotation;
+        }
+
+        Vector3 directionToPlayer = playerTransform.position - spawnPosition;
+        Vector3 directionOnXZPlane = directionToPlayer;
+        directionOnXZPlane.y = 0;
+
+        if (directionOnXZPlane != Vector3.zero)
+        {
+            Quaternion targetYRotation = Quaternion.LookRotation(directionOnXZPlane, Vector3.up);
+            Vector3 originalEuler = originalPrefabRotation.eulerAngles;
+            Vector3 targetYEuler = targetYRotation.eulerAngles;
+            finalRotation = Quaternion.Euler(originalEuler.x, targetYEuler.y, originalEuler.z);
+        }
+
+        return finalRotation;
     }
 }
