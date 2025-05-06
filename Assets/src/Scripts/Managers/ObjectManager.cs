@@ -51,10 +51,16 @@ public class ObjectManager : MonoBehaviour
         }
     }
 
-    //  might need later
-    // public List<ObjectInfo> FindObjectsByType(ObjectType type)
-    // {
-    //     return activeObjects.Where(obj => obj.objectType == type).ToList();
-    // }
+    public void ClearAllRegisteredObjects()
+    {
+        for (int i = activeObjects.Count - 1; i >= 0; i--)
+        {
+            if (activeObjects[i] != null)
+            {
+                Destroy(activeObjects[i].gameObject);
+            }
+        }
+        activeObjects.Clear();
+    }
 
 }

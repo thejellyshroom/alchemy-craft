@@ -90,3 +90,5 @@ public class ObjectInfo : MonoBehaviour
         hasCombined = false;
     }
 }
+
+// Trashcan by Poly by Google [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/fw6F3liNvHQ)

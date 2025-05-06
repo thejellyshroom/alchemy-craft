@@ -17,7 +17,6 @@ public class PrimitiveSpawner : MonoBehaviour
         rb.isKinematic = true;
         rb.useGravity = false;
 
-        // Correct way to freeze all rotation and position axes
         rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
 
         UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
@@ -29,14 +28,13 @@ public class PrimitiveSpawner : MonoBehaviour
         grabInteractable.movementType = UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable.MovementType.Kinematic;
         grabInteractable.throwOnDetach = false;
 
-        // XR input: Hook up grab event
-        grabInteractable.selectEntered.RemoveListener(HandleGrab); // Remove first to prevent duplicates
+        grabInteractable.selectEntered.RemoveListener(HandleGrab);
         grabInteractable.selectEntered.AddListener(HandleGrab);
     }
 
     void Start()
     {
-        GameObject playerObject = GameObject.FindWithTag("Player"); // Replace "Player" with the actual tag you're using
+        GameObject playerObject = GameObject.FindWithTag("Player");
 
         if (playerObject != null)
         {
@@ -68,15 +66,6 @@ public class PrimitiveSpawner : MonoBehaviour
         Quaternion finalRotation = CalculateYAxisFacingPlayerRotation(originalPrefabRotation, spawnPosition, playerPosition);
 
         Instantiate(primitiveToSpawn, spawnPosition, finalRotation);
-    }
-
-    void OnDestroy()
-    {
-        UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
-        if (grabInteractable != null)
-        {
-            grabInteractable.selectEntered.RemoveListener(HandleGrab);
-        }
     }
 
     void Update()
