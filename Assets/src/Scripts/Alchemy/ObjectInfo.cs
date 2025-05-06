@@ -1,16 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Collider))] // Ensure the object has a Collider
+[RequireComponent(typeof(Collider))]
 public class ObjectInfo : MonoBehaviour
 {
     public ObjectType objectType;
     private bool hasCombined = false;
-    private Transform playerTransform; // Added to store player transform
+    private Transform playerTransform;
 
     void Start()
     {
-        // Added: Find Player Transform
         GameObject playerObject = GameObject.FindWithTag("Player");
         if (playerObject != null)
         {
@@ -21,7 +20,6 @@ public class ObjectInfo : MonoBehaviour
             Debug.LogError("Player object with tag 'Player' not found! Combination rotation may be incorrect.", this.gameObject);
         }
 
-        // Ensure ObjectManager exists
         if (ObjectManager.Instance != null)
         {
             ObjectManager.Instance.RegisterObject(this);
@@ -54,21 +52,21 @@ public class ObjectInfo : MonoBehaviour
         if (otherInfo != null && !otherInfo.hasCombined)
         {
             // valid combination rule?
-            GameObject resultPrefab = CombinationManager.Instance.CheckCombination(this.objectType, otherInfo.objectType);
+            CombinationRule matchedRule = CombinationManager.Instance.CheckCombination(this.objectType, otherInfo.objectType);
 
-            if (resultPrefab != null)
+            if (matchedRule != null && matchedRule.outputPrefab != null)
             {
                 this.hasCombined = true;
                 otherInfo.hasCombined = true;
 
-                Vector3 spawnPosition = collision.contacts[0].point + new Vector3(0, 0.5f, 0); // Position where they touched
+                GameObject resultPrefab = matchedRule.outputPrefab;
+                Vector3 spawnPosition = collision.contacts[0].point + new Vector3(0, 0.5f, 0);
 
-                Quaternion finalRotation = Quaternion.identity; // Default rotation
-                if (resultPrefab != null)
-                {
-                    Quaternion originalPrefabRotation = resultPrefab.transform.rotation;
-                    finalRotation = PrimitiveSpawner.CalculateYAxisFacingPlayerRotation(originalPrefabRotation, spawnPosition, playerTransform);
-                }
+                Quaternion finalRotation = Quaternion.identity;
+                Quaternion originalPrefabRotation = resultPrefab.transform.rotation;
+                finalRotation = PrimitiveSpawner.CalculateYAxisFacingPlayerRotation(originalPrefabRotation, spawnPosition, playerTransform);
+
+                bool isNewDiscovery = CombinationManager.Instance.RegisterDiscovery(matchedRule);
 
                 GameObject resultObject = Instantiate(resultPrefab, spawnPosition, finalRotation);
 
@@ -85,7 +83,6 @@ public class ObjectInfo : MonoBehaviour
 
     System.Collections.IEnumerator ResetCombineFlag()
     {
-        // Wait for the end of the frame to ensure collision processing is complete
         yield return new WaitForEndOfFrame();
         hasCombined = false;
     }

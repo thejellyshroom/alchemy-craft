@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input1: 8
   input2: 4
-  outputType: 0
+  outputType: 11
   outputPrefab: {fileID: 8332770517423573564, guid: 384ef1cf6d07f4798a5deba04d2af5c3, type: 3}
