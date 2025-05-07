@@ -8,6 +8,7 @@ using System; // Needed for Action event
 
 
 
+
 [RequireComponent(typeof(AudioSource))] // Ensure AudioSource exists for PlayClipAtPoint fallback/alternative
 public class CombinationManager : MonoBehaviour
 {
@@ -146,14 +147,17 @@ public class CombinationManager : MonoBehaviour
         // Sama's Shelf implementation
         if (added && discoveredCombinations.Count <= shelfSlots.Count)
         {
+            // Sama's updated shelf logic - now you can combine things from the shelf'
+            // Freeze physics to lock in place
+            if (added && discoveredCombinations.Count <= shelfSlots.Count)
+            {
             int slotIndex = discoveredCombinations.Count - 1;
             Transform slot = shelfSlots[slotIndex];
 
             GameObject shelfCopy = Instantiate(discoveredRule.outputPrefab, slot.position, slot.rotation);
             shelfCopy.transform.SetParent(slot);
 
-            // Sama new test code
-            // Freeze physics to lock in place
+            // Freeze it until grabbed
             Rigidbody rb = shelfCopy.GetComponent<Rigidbody>();
             if (rb == null)
                 rb = shelfCopy.AddComponent<Rigidbody>();
@@ -162,17 +166,26 @@ public class CombinationManager : MonoBehaviour
             rb.isKinematic = true;
             rb.constraints = RigidbodyConstraints.FreezeAll;
 
-            // Add interactable to allow selection
             UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grab = shelfCopy.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
             if (grab == null)
                 grab = shelfCopy.AddComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
-            grab.throwOnDetach = false;
-            grab.movementType = UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable.MovementType.Kinematic;
 
-            // Attach spawner
-            ShelfItemSpawner spawner = shelfCopy.AddComponent<ShelfItemSpawner>();
-            spawner.Initialize(discoveredRule.outputPrefab);
-            grab.selectEntered.AddListener(spawner.OnSelected);
+            grab.throwOnDetach = true;
+            grab.movementType = UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable.MovementType.VelocityTracking;
+
+            // Unlock the item once it is grabbed
+            grab.selectEntered.AddListener((args) =>
+            {
+                Rigidbody shelfRB = shelfCopy.GetComponent<Rigidbody>();
+                if (shelfRB != null)
+                {
+                    shelfRB.useGravity = true;
+                    shelfRB.isKinematic = false;
+                    shelfRB.constraints = RigidbodyConstraints.None;
+                }
+            });
+        }
+
 
             //// parked code:
 
