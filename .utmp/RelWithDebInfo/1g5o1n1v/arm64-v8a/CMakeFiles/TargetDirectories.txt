@@ -1,0 +1,5 @@
+/Users/samashah/IDSN_539_Assignment_1_VR/alchemy-craft/.utmp/RelWithDebInfo/1g5o1n1v/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/samashah/IDSN_539_Assignment_1_VR/alchemy-craft/.utmp/RelWithDebInfo/1g5o1n1v/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/Users/samashah/IDSN_539_Assignment_1_VR/alchemy-craft/.utmp/RelWithDebInfo/1g5o1n1v/arm64-v8a/GameActivity/CMakeFiles/game.dir
+/Users/samashah/IDSN_539_Assignment_1_VR/alchemy-craft/.utmp/RelWithDebInfo/1g5o1n1v/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+/Users/samashah/IDSN_539_Assignment_1_VR/alchemy-craft/.utmp/RelWithDebInfo/1g5o1n1v/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir

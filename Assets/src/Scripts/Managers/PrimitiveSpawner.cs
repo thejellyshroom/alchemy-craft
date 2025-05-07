@@ -87,6 +87,7 @@ public class PrimitiveSpawner : MonoBehaviour
     {
         Quaternion finalRotation = originalPrefabRotation; // Default to original rotation
 
+
         if (playerTransform == null)
         {
             Debug.LogWarning("Player Transform is null in CalculateYAxisFacingPlayerRotation. Returning original rotation.");

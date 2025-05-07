@@ -1,0 +1,2 @@
+/Users/samashah/IDSN_539_Assignment_1_VR/alchemy-craft/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/CMakeLists.txt
+/Users/samashah/IDSN_539_Assignment_1_VR/alchemy-craft/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/CMakeLists.txt

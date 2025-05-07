@@ -3,6 +3,11 @@ using System.Collections.Generic; // Required for using Dictionaries or Lists if
 using System.Linq; // Required for Linq queries if we want more complex rule lookups later
 using System; // Needed for Action event
 
+
+
+
+
+
 [RequireComponent(typeof(AudioSource))] // Ensure AudioSource exists for PlayClipAtPoint fallback/alternative
 public class CombinationManager : MonoBehaviour
 {
@@ -16,6 +21,23 @@ public class CombinationManager : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioClip newDiscoverySound;
     [SerializeField] private AudioClip completionSound;
+
+
+    // Sama's shelf implementation
+    [SerializeField] private Transform discoveryShelfParent; // assigned DiscoveryShelf in inspector
+    private List<Transform> shelfSlots = new List<Transform>(); // filled in Start()
+
+    void Start() {
+        shelfSlots.Clear(); // Just in case
+        // Fill shelfSlots from children of shelf parent
+        foreach (Transform child in discoveryShelfParent) {
+            shelfSlots.Add(child);
+        }
+    }
+
+    ////////
+
+
 
 
     void Awake()
@@ -120,6 +142,57 @@ public class CombinationManager : MonoBehaviour
                 OnGameCompleted?.Invoke();
             }
         }
+
+        // Sama's Shelf implementation
+        if (added && discoveredCombinations.Count <= shelfSlots.Count)
+        {
+            int slotIndex = discoveredCombinations.Count - 1;
+            Transform slot = shelfSlots[slotIndex];
+
+            GameObject shelfCopy = Instantiate(discoveredRule.outputPrefab, slot.position, slot.rotation);
+            shelfCopy.transform.SetParent(slot);
+
+            // Sama new test code
+            // Freeze physics to lock in place
+            Rigidbody rb = shelfCopy.GetComponent<Rigidbody>();
+            if (rb == null)
+                rb = shelfCopy.AddComponent<Rigidbody>();
+
+            rb.useGravity = false;
+            rb.isKinematic = true;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+
+            // Add interactable to allow selection
+            UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grab = shelfCopy.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+            if (grab == null)
+                grab = shelfCopy.AddComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+            grab.throwOnDetach = false;
+            grab.movementType = UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable.MovementType.Kinematic;
+
+            // Attach spawner
+            ShelfItemSpawner spawner = shelfCopy.AddComponent<ShelfItemSpawner>();
+            spawner.Initialize(discoveredRule.outputPrefab);
+            grab.selectEntered.AddListener(spawner.OnSelected);
+
+            //// parked code:
+
+            // // Disable physics so it stays on the shelf
+            // Destroy(shelfCopy.GetComponent<Rigidbody>());
+
+            // // Set up interaction for spawning
+            // UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grab = shelfCopy.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+            // if (grab == null) grab = shelfCopy.AddComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+
+            // grab.throwOnDetach = false; // Optional: don't throw shelf items
+
+            // ShelfItemSpawner spawner = shelfCopy.AddComponent<ShelfItemSpawner>();
+            // spawner.Initialize(discoveredRule.outputPrefab);
+
+            // grab.selectEntered.AddListener(spawner.OnSelected);
+        }
+
+        /////
+
         return added;
     }
 
